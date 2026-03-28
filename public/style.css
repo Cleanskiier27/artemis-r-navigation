@@ -37,6 +37,10 @@ body {
     padding: 20px;
 }
 
+.live-cam-panel {
+    margin-bottom: 20px;
+}
+
 .telemetry-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

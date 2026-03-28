@@ -18,6 +18,15 @@
     </div>
 
     <main class="dashboard">
+        <section class="live-cam-panel">
+            <div class="card" style="padding: 0; overflow: hidden; height: 350px;">
+                <div class="card-header" style="background: rgba(0,0,0,0.5); padding: 5px 15px; position: absolute; width: 100%; z-index: 5;">
+                    <h3 style="margin: 0; color: #fff;">LIVE MISSION FEED (NASA OVERRIDE)</h3>
+                </div>
+                <iframe id="live-feed" src="https://www.youtube.com/embed/21X5lGlDOfg?autoplay=1&mute=1" style="width: 100%; height: 100%; border: none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
+
         <section class="telemetry-grid">
             <div class="card">
                 <h3>ORBITAL POSITION (KM)</h3>

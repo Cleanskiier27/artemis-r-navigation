@@ -24,6 +24,10 @@ let mission_status = {
     pnt_uncertainty: 0.0045,
     pilot_lock: true,
     mission_duration: "T-PLUS 00:04:12:45",
+    telemetry_mode: "O2O_HIGH_BITRATE",
+    bitrate_mbps: 260.0,
+    live_cam_override: false,
+    live_feed_url: "https://www.youtube.com/embed/21X5lGlDOfg?autoplay=1&mute=1",
     biometrics: {
         crew_1: { pulse: 72, oxygen: 98, stress: "LOW" },
         crew_2: { pulse: 75, oxygen: 99, stress: "LOW" },

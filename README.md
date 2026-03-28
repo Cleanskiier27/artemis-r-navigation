@@ -16,6 +16,14 @@ Your contributions directly fund:
 
 ### [Sponsor the Project Here](https://github.com/sponsors/Cleanskiier27)
 
+## ⚖️ International Law & Open Data Compliance
+In accordance with **Article XI of the 1967 Outer Space Treaty** and **Section 8 of the Artemis Accords**, the Artemis R mission commits to the "open sharing of scientific data" and the transparency of its lunar operations.
+
+This repository implements:
+- **International Open Data Archive:** Automatic snapshotting of PNT (Position, Navigation, and Timing) data.
+- **Far Side Relay Simulation:** Realistic modeling of lunar far side communications via simulated relay satellites.
+- **Registration of Space Objects:** Metadata for all simulated assets is registered in `master_index.md` per **Artemis Accords Section 7**.
+
 ---
 
 ## Mission Architecture

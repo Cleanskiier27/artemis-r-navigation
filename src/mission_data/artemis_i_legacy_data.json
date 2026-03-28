@@ -1,0 +1,9 @@
+{
+    "mission": "Artemis I (Legacy Archive)",
+    "vehicle": "Orion CM-002",
+    "phases": {
+        "DRO_Insertion": { "pos_x": 71737.4, "vel_y": 0.25, "date": "2022-11-25" },
+        "TEI_Burn": { "pos_x": 384400, "vel_delta": 0.9, "date": "2022-12-05" },
+        "Entry_Interface": { "altitude_km": 121.92, "velocity_km_s": 11.0, "angle_deg": -6.0, "date": "2022-12-11" }
+    }
+}
