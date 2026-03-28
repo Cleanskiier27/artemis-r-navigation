@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artemis R | Mission Control Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="mission-logo">ARTEMIS R</div>
+        <div id="mission-timer" class="timer">T-PLUS 00:00:00:00</div>
+        <div class="system-status">
+            <span>NETWORK: <strong class="green">ONLINE</strong></span>
+            <span>PILOT LOCK: <strong id="pilot-lock-status" class="red">LOCKED</strong></span>
+        </div>
+    </div>
+
+    <main class="dashboard">
+        <section class="telemetry-grid">
+            <div class="card">
+                <h3>ORBITAL POSITION (KM)</h3>
+                <div class="value" id="pos-x">X: 71,737.4</div>
+                <div class="value" id="pos-y">Y: 15.2</div>
+                <div class="value" id="pos-z">Z: -2.3</div>
+            </div>
+            <div class="card">
+                <h3>VELOCITY (KM/S)</h3>
+                <div class="value" id="vel-x">X: 0.10</div>
+                <div class="value" id="vel-y">Y: 0.25</div>
+                <div class="value" id="vel-z">Z: 0.01</div>
+            </div>
+            <div class="card">
+                <h3>MISSION PHASE</h3>
+                <div class="phase-value" id="mission-phase">LUNAR CAPTURE</div>
+                <div class="sub-text">TARGET: MOON (DRO)</div>
+            </div>
+            <div class="card">
+                <h3>SPATIAL AWARENESS (PNT)</h3>
+                <div class="value">UNCERTAINTY: <span id="pnt-val">0.0045</span></div>
+                <div class="sub-text">SOURCE: EARTH-STAR-MOON TRIANGULATION</div>
+            </div>
+        </section>
+
+        <section class="log-panel">
+            <h3>MISSION LOGS (SYSTEM_ADMIN)</h3>
+            <div id="logs" class="logs">
+                <p>[10:52:00] MISSION_RESTART: Handover to Immutable Control Layer.</p>
+                <p>[10:52:05] SENSOR_SYNC: OpNav filter initialized (EKF).</p>
+                <p>[10:52:10] PILOT_OVERRIDE: Manual input detected - BLOCKING per Simulation.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const socket = io();
+        const logsDiv = document.getElementById('logs');
+
+        socket.on('telemetry', (data) => {
+            document.getElementById('pos-x').innerText = `X: ${data.position.x.toFixed(2)}`;
+            document.getElementById('pos-y').innerText = `Y: ${data.position.y.toFixed(2)}`;
+            document.getElementById('pos-z').innerText = `Z: ${data.position.z.toFixed(2)}`;
+            
+            document.getElementById('vel-x').innerText = `X: ${data.velocity.x.toFixed(2)}`;
+            document.getElementById('vel-y').innerText = `Y: ${data.velocity.y.toFixed(2)}`;
+            document.getElementById('vel-z').innerText = `Z: ${data.velocity.z.toFixed(2)}`;
+
+            document.getElementById('mission-phase').innerText = data.phase;
+            document.getElementById('pnt-val').innerText = data.pnt_uncertainty.toFixed(4);
+            
+            const lockStatus = document.getElementById('pilot-lock-status');
+            lockStatus.innerText = data.pilot_lock ? 'LOCKED' : 'MANUAL';
+            lockStatus.className = data.pilot_lock ? 'red' : 'green';
+        });
+
+        function addLog(msg) {
+            const p = document.createElement('p');
+            p.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            logsDiv.prepend(p);
+            if (logsDiv.children.length > 10) logsDiv.lastChild.remove();
+        }
+    </script>
+</body>
+</html>

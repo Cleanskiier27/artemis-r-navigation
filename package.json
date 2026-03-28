@@ -1,0 +1,14 @@
+{
+  "name": "artemis-r-navigation-server",
+  "version": "1.0.0",
+  "description": "Artemis R Mission Data Relay and Telemetry Server",
+  "main": "src/server/mission_relay_server.js",
+  "scripts": {
+    "start": "node src/server/mission_relay_server.js",
+    "dev": "nodemon src/server/mission_relay_server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}

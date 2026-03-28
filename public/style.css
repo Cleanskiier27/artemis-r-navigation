@@ -1,0 +1,100 @@
+body {
+    background: #0d0d0d;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.header {
+    background: #1a1a1a;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #333;
+}
+
+.mission-logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    letter-spacing: 5px;
+    color: #4a9eff;
+}
+
+.timer {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em;
+    color: #ffca28;
+}
+
+.system-status {
+    font-size: 0.9em;
+}
+
+.dashboard {
+    padding: 20px;
+}
+
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #1e1e1e;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.card h3 {
+    margin: 0 0 15px;
+    font-size: 0.85em;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.value {
+    font-size: 1.6em;
+    font-weight: 300;
+    margin: 5px 0;
+}
+
+.phase-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4a9eff;
+}
+
+.sub-text {
+    font-size: 0.75em;
+    color: #555;
+    margin-top: 10px;
+}
+
+.log-panel {
+    background: #111;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.logs {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85em;
+    color: #00ff00;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #000;
+}
+
+.green { color: #00ff00; }
+.red { color: #ff4a4a; }
+.blue { color: #4a9eff; }
