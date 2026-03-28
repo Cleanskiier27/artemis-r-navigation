@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artemis R | Global Redundant Monitor</title>
+    <style>
+        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 40px; }
+        .header { border-left: 5px solid #4a9eff; padding-left: 20px; margin-bottom: 40px; }
+        h1 { font-size: 2.5em; letter-spacing: 10px; margin: 0; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .module { background: #111; border: 1px solid #222; padding: 30px; border-radius: 8px; }
+        .metric { font-size: 3em; font-weight: bold; color: #4a9eff; }
+        .label { font-size: 0.8em; color: #555; text-transform: uppercase; letter-spacing: 2px; }
+        .warning-active { color: #ff4a4a; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .crew-list { list-style: none; padding: 0; }
+        .crew-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GLOBAL MISSION MONITOR</h1>
+        <p>REDUNDANT NODE: 02 | SERVER_PORT: 3001</p>
+    </div>
+
+    <div class="grid">
+        <div class="module">
+            <div class="label">Mission Duration</div>
+            <div id="duration" class="metric">T-PLUS 00:00:00:00</div>
+        </div>
+        <div class="module">
+            <div class="label">System Warnings</div>
+            <div id="warnings" class="metric">NONE</div>
+        </div>
+        <div class="module">
+            <div class="label">Crew Vitals Summary</div>
+            <ul class="crew-list">
+                <li class="crew-item">COMMANDER <span>NOMINAL</span></li>
+                <li class="crew-item">PILOT <span>NOMINAL</span></li>
+                <li class="crew-item">SPECIALIST 1 <span>NOMINAL</span></li>
+                <li class="crew-item">SPECIALIST 2 <span>NOMINAL</span></li>
+            </ul>
+        </div>
+        <div class="module">
+            <div class="label">Orbital Stability</div>
+            <div id="phase" class="metric" style="font-size: 2em;">LUNAR_CAPTURE</div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchGlobalData() {
+            try {
+                const res = await fetch('/global-telemetry');
+                const data = await res.json();
+                document.getElementById('duration').innerText = data.mission_duration || '---';
+                document.getElementById('phase').innerText = data.primary_metrics.phase;
+                
+                const warnDiv = document.getElementById('warnings');
+                if (data.active_warnings.length > 0) {
+                    warnDiv.innerText = data.active_warnings[0];
+                    warnDiv.classList.add('warning-active');
+                } else {
+                    warnDiv.innerText = "NONE";
+                    warnDiv.classList.remove('warning-active');
+                }
+            } catch (e) {
+                console.log("Relay connection lost.");
+            }
+        }
+        setInterval(fetchGlobalData, 2000);
+        fetchGlobalData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+name: Artemis R Mission Readiness
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  node-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - name: Build Check
+        run: node --check src/server/mission_relay_server.js
+
+  python-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - name: Orbit Sim Check
+        run: python src/simulation/moon_orbit_sim.py
+
+  cpp-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install G++
+        run: sudo apt-get update && sudo apt-get install -g++
+      - name: Compile Flight Logic
+        run: g++ src/pilot_controls/immutable_flight_logic.cpp -o flight_logic
+      - name: Compile Recovery Debugger
+        run: g++ src/pilot_controls/recovery_debugger.cpp -o recovery_debugger

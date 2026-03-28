@@ -23,6 +23,19 @@ let mission_status = {
     velocity: { x: 0.1, y: 0.25, z: 0.01 },
     pnt_uncertainty: 0.0045,
     pilot_lock: true,
+    mission_duration: "T-PLUS 00:04:12:45",
+    biometrics: {
+        crew_1: { pulse: 72, oxygen: 98, stress: "LOW" },
+        crew_2: { pulse: 75, oxygen: 99, stress: "LOW" },
+        crew_3: { pulse: 68, oxygen: 98, stress: "LOW" },
+        crew_4: { pulse: 80, oxygen: 97, stress: "NOMINAL" }
+    },
+    propulsion: {
+        engine_status: "ACTIVE",
+        fuel_level: 88.4,
+        cam_status: "16/16 ONLINE"
+    },
+    warnings: [],
     data_source: "Live-Simulation-Bridge"
 };
 
@@ -33,6 +46,16 @@ setInterval(() => {
     mission_status.position.y += (Math.random() - 0.5) * 0.1;
     mission_status.velocity.y += (Math.random() - 0.5) * 0.01;
     
+    // Update Biometrics
+    mission_status.biometrics.crew_1.pulse = 70 + Math.floor(Math.random() * 5);
+    mission_status.biometrics.crew_4.pulse = 78 + Math.floor(Math.random() * 10);
+    
+    // Critical Warning Simulation (Example: Random Radiation Spike)
+    if (Math.random() > 0.98) {
+        mission_status.warnings.push("RAD_SPIKE_DETECTED");
+        setTimeout(() => { mission_status.warnings = []; }, 5000);
+    }
+
     // Broadcast to all connected clients (Dashboard/Sim)
     io.emit('telemetry', mission_status);
 }, 1000);
