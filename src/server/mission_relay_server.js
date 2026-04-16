@@ -39,6 +39,27 @@ let mission_status = {
         fuel_level: 88.4,
         cam_status: "16/16 ONLINE"
     },
+    system_load: {
+        cpu: 42,
+        ram: 64,
+        disk: 12,
+        processes: [
+            { id: 1024, name: "RELAY_SRV", status: "RUNNING" },
+            { id: 2048, name: "OS_KERNEL", status: "RUNNING" },
+            { id: 4096, name: "SEC_DAEMON", status: "SLEEP" }
+        ]
+    },
+    mission_archive: [
+        { id: "M2M-01", name: "Lunar Outpost", status: "COMPLETED", detail: "Established first sustained lunar habitat." },
+        { id: "M2M-02", name: "Gateway Alpha", status: "STABLE", detail: "Deep space station in NRHO orbit." },
+        { id: "M2M-03", name: "Martian Surveyor", status: "IN_TRANSIT", detail: "Atmospheric probe arriving 2027." }
+    ],
+    dependabot_status: {
+        total: 12,
+        critical: 1,
+        high: 3,
+        disclosure: "CONFIDENTIAL: Security audit in progress for Artemis Protocol 4."
+    },
     warnings: [],
     data_source: "Live-Simulation-Bridge"
 };
@@ -53,6 +74,10 @@ setInterval(() => {
     // Update Biometrics
     mission_status.biometrics.crew_1.pulse = 70 + Math.floor(Math.random() * 5);
     mission_status.biometrics.crew_4.pulse = 78 + Math.floor(Math.random() * 10);
+    
+    // Update System Load
+    mission_status.system_load.cpu = 30 + Math.floor(Math.random() * 20);
+    mission_status.system_load.ram = 60 + Math.floor(Math.random() * 5);
     
     // Critical Warning Simulation (Example: Random Radiation Spike)
     if (Math.random() > 0.98) {
